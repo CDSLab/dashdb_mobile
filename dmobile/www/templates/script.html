@@ -1,0 +1,22 @@
+<ion-view cache-view="false">
+    <!-- <ion-nav-title>R Script Executing Result</ion-nav-title>
+    <ion-content>
+        <p>{{executionResult}}</p>
+    </ion-content> -->
+
+    <ion-nav-title>R Scripts</ion-nav-title>
+    <div class="spinnerdiv" ng-class="hideSpinnerClass">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-content>
+    <h4>Click on the R Script that you wish to execute.</h4>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getScripts()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-icon-right" href="#/app/execscript" ng-repeat="script in rscripts" ng-click="setSelected(script);">
+                {{script}}
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

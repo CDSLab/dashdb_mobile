@@ -1,0 +1,19 @@
+<ion-view cache-view="false">
+
+    <ion-nav-title>Graph Images</ion-nav-title>
+    <div class="spinnerdiv" ng-class="hideSpinnerClass">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-content>
+    <h4>Click on the Graph Image that you wish to see.</h4>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getImages()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-icon-right" href="#/app/graph" ng-repeat="graph in graphs" ng-click="setSelected(graph);">
+                {{graph}}
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+        </ion-list>
+        <p>{{rscripts}}</p>
+    </ion-content>
+</ion-view>

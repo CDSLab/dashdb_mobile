@@ -1,0 +1,16 @@
+<ion-view cache-view="false">
+    <ion-nav-title>Products</ion-nav-title>
+    <div class="spinnerdiv" ng-class="hideSpinnerClass">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getProducts()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-icon-left" href="#" ng-repeat="product in products" ng-click="setSelected(product);">
+                {{product.PRODUCT_NAME}}
+                <i class="icon ion-android-radio-button-off"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
