@@ -28,12 +28,15 @@ This sample mobile app leverages IBM's Bluemix dashDB REST API. The sample code 
 - To create a dashDB Instance, go to the Catalog. ![Alt Text](https://raw.githubusercontent.com/CDSLab/CDSTutorials/master/basic_nodejs_app_live_code_edit/images/catalog_tab.png)
 
 - Click on dashDB Service Icon, under the category Data and Analytics. 
+	![Alt Text](images/servicefromcatalog.png)
 
 - Once you have created your instance. You will need the host, username and password to access your data from the mobile app. You can see your credentials by going to the DASHBOARD and clicking on your dashDB instance. On the left menu, click on Service Credentials.
+	![Alt Text](images/dashdbCreds.png)
 
 ## Connect the mobile app to your dashDB instance
 
 Now that you have your dashDB credentials, click on the Login button in the mobile app menu and enter your credentials.
+	![Alt Text](images/appMenu.png)
 
 
 
