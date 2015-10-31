@@ -36,7 +36,8 @@ This sample mobile app leverages IBM's Bluemix dashDB REST API. The sample code 
 ## Connect the mobile app to your dashDB instance
 
 Now that you have your dashDB credentials, click on the Login button in the mobile app menu and enter your credentials.
-	![Alt Text](images/appMenu.png)
+
+![Alt Text](images/appMenu.png)
 
 
 
