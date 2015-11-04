@@ -43,33 +43,28 @@ angular.module('controllers', [])
 
     $scope.getScripts = function() {
           var url_ = 'https://' + dashDBService.getHost() + ':8443/dashdb-api/home'
+          dashDBService.getFiles($http, url_, function(err, lines){
+            if(!err){
+              var files = [];
+              for(var i = 0; i < lines.length; i++){
+                if( lines[i].substr(-1) === "R" ) {
+                  lines[i] = lines[i].substr(1);
+                  files.push(lines[i]);
+                } 
+              }                    
+                  $scope.rscripts = files;
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $scope.hideSpinnerClass = "hidden";
+                  window.localStorage.setItem('scripts', $scope.rscripts);
 
-          $http({
-                  url: url_,
-                  method: 'GET',
-                  headers: {
-                    'Authorization' : dashDBService.getAuth() // Note the appropriate header
-                  },
-                }).success(function(response, data) {
+            } else {
+              console.log('Loading saved data');
+              $scope.$broadcast('scroll.refreshComplete');
+              $scope.hideSpinnerClass = "hidden";
+              $scope.rscripts = JSON.parse(window.localStorage.getItem('scripts'));
 
-                    var files = [];
-                    var lines = response.result.split(/\n/);
-                    for(var i = 0; i < lines.length; i++){
-                      if( lines[i].substr(-1) === "R" ) {
-                        lines[i] = lines[i].substr(1);
-                        files.push(lines[i]);
-                      } 
-                    }                    
-                        $scope.rscripts = files;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        $scope.hideSpinnerClass = "hidden";
-                        // window.localStorage.setItem('scripts', JSON.parse($scope.rscripts));
-                    }).error(function(response) {
-                        console.log('Loading saved data');
-                        $scope.$broadcast('scroll.refreshComplete');
-                        $scope.hideSpinnerClass = "hidden";
-                        // $scope.rscripts = JSON.parse(window.localStorage.getItem('scripts'));
-            });
+            }
+          });
         };
 
         $ionicPlatform.ready(function() {
@@ -108,7 +103,6 @@ angular.module('controllers', [])
                     }
                 }).error(function(response) {
                     $scope.executionResult = "Error reaching dashDB";
-                    console.log("error="+ JSON.stringify(response));
         });
 
     });
@@ -150,32 +144,27 @@ angular.module('controllers', [])
 
     $scope.getImages = function() {
           var url_ = 'https://' + dashDBService.getHost() + ':8443/dashdb-api/home'
+          var files = [];
 
-          $http({
-                  url: url_,
-                  method: 'GET',
-                  headers: {
-                    'Authorization' : dashDBService.getAuth() // Note the appropriate header
-                  },
-                }).success(function(response, data) {
-                    var files = [];
-                    var lines = response.result.split(/\n/);
-                    for(var i = 0; i < lines.length; i++) {
-                        if(lines[i].substr(-3) === "jpg") {
-                        lines[i] = lines[i].substr(1);
-                        files.push(lines[i]);
-                      } 
-                    }                    
-                        $scope.graphs = files;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        $scope.hideSpinnerClass = "hidden";
-                        // window.localStorage.setItem('graphs', JSON.parse($scope.graphs));
-                    }).error(function(response) {
-                        console.log('Loading saved data');
-                        $scope.$broadcast('scroll.refreshComplete');
-                        $scope.hideSpinnerClass = "hidden";
-                        // $scope.rscripts = JSON.parse(window.localStorage.getItem('graphs'));
-            });
+          dashDBService.getFiles($http, url_, function(err, lines){
+            if(!err) {
+                for(var i = 0; i < lines.length; i++) {
+                  if(lines[i].substr(-3) === "jpg") {
+                    lines[i] = lines[i].substr(1);
+                    files.push(lines[i]);
+                  }
+                } 
+                $scope.graphs = files;
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.hideSpinnerClass = "hidden";
+                window.localStorage.setItem('graphs', files);
+            } else {
+              console.log('Loading saved data');
+              $scope.$broadcast('scroll.refreshComplete');
+              $scope.hideSpinnerClass = "hidden";
+              $scope.graphs = JSON.parse(window.localStorage.getItem('graphs'));
+            }
+          });
         };
 
         $ionicPlatform.ready(function() {

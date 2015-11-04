@@ -43,11 +43,31 @@ angular.module('starter.services', [])
     return host_name;
   }
 
+  var getFiles = function($http, url_, callback) {
+    $http({
+      url: url_,
+      method: 'GET',
+      headers: {
+        'Authorization' : auth // Note the appropriate header
+      }
+    }).success(function(response) {
+        console.log("success");
+        var lines = response.result.split(/\n/);
+        callback(null, lines); 
+
+    }).error(function(statusText) {
+            console.log(JSON.stringify(statusText));
+            console.log('Unable to get files from dashDB instance.');
+            callback(statusText, null);
+          });
+  }
+
   return {
     getAuth: getAuth,
     setAuth: setAuth,
     setHost: setHost,
-    getHost: getHost
+    getHost: getHost,
+    getFiles: getFiles
   };
 })
 
